@@ -25,7 +25,7 @@ fun main() {
         date = 130324,
         text = "третий пост",))
     val postUpdate = Post(
-        id = 1,
+        id = 5,
         ownerId = 100,
         fromId = 100,
         createdBy = 100,
