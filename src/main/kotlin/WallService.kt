@@ -1,5 +1,5 @@
-object WallService {
-   private var arrayPosts = emptyArray<Post>()
+class WallService {
+   var arrayPosts = emptyArray<Post>()
 
     fun add(post: Post): Post {
         arrayPosts += post.copy(id = arrayPosts.size + 1)
