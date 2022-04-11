@@ -1,5 +1,8 @@
+import Attachments.PostNotFoundException
+
 internal class WallService {
-   var arrayPosts = emptyArray<Post>()
+    private var arrayPosts = emptyArray<Post>()
+    private var arrayComments = emptyArray<Comment>()
 
     fun add(post: Post): Post {
         arrayPosts += post.copy(id = arrayPosts.size + 1)
@@ -16,5 +19,16 @@ internal class WallService {
         return false
     }
 
-
+    fun createComment(comment: Comment): Boolean {
+        for (post in arrayPosts) {
+            if (post.id == comment.postId) {
+                arrayComments += comment
+                return true
+                }
+            }
+        throw PostNotFoundException("Пост с ID ${comment.postId} не найден")
+    }
 }
+
+
+

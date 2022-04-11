@@ -1,9 +1,14 @@
 package ru.netology
 
+import Attachments.Photo
+import Attachments.PhotoAttachment
+import Attachments.PostNotFoundException
+import Comment
 import Post
 import WallService
 import org.junit.Assert.*
 import org.junit.Test
+import java.lang.IllegalStateException
 
 class WallServiceTest {
     private val post1 = Post(
@@ -83,4 +88,41 @@ class WallServiceTest {
         //assert
         assertEquals(expectedId, actualId)
     }
+
+    @Test(expected = PostNotFoundException::class)
+    fun createComment_returnException() {
+        //arrange
+        val service = WallService()
+        service.add(post1)
+        service.add(post2)
+        //act
+        val actualException = service.createComment(
+            comment = Comment(
+                ownerId = 4,
+                postId = 5,
+                fromGroup = 34,
+                message = "Отличный пост"
+            )
+        )
+    }
+
+    @Test
+    fun createComment_returnTrue() {
+        //arrange
+        val service = WallService()
+        service.add(post1)
+        service.add(post2)
+        //act
+        val result = service.createComment(
+            comment = Comment(
+                ownerId = 4,
+                postId = 1,
+                fromGroup = 34,
+                message = "Отличный пост"
+            )
+        )
+        //assert
+        assertTrue(result)
+    }
+
 }
